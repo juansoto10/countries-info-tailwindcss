@@ -12,7 +12,7 @@ const allCountries = {
     "altSpellings": ["AF", "Afġānistān"],
     "region": "Asia",
     "subregion": "Southern Asia",
-    "population": 2837743,
+    "population": 39835428,
     "latLng": { "country": [33, 65], "capital": [34.52, 69.18] },
     "demonyms": {
       "eng": { "f": "Afghan", "m": "Afghan" },
@@ -11903,7 +11903,7 @@ const allCountries = {
       "spa": { "official": "República Argentina", "common": "Argentina" }
     },
     "currencies": { "ARS": { "name": "Argentine peso", "symbol": "$" } },
-    "languages": { "grn": "Guaraní", "spa": "Spanish" },
+    "languages": {"spa": "Spanish", "grn": "Guaraní"},
     "translations": {
       "ara": "الأرجنتين",
       "ces": "Argentina",
@@ -15438,7 +15438,7 @@ const allCountries = {
     "altSpellings": ["DZ", "Dzayer", "Algérie"],
     "region": "Africa",
     "subregion": "Northern Africa",
-    "population": 510713,
+    "population": 44616626,
     "latLng": { "country": [28, 3], "capital": [36.75, 3.05] },
     "demonyms": {
       "eng": { "f": "Algerian", "m": "Algerian" },
@@ -17606,5 +17606,3 @@ const countries = {};
 Object.keys(allCountries).sort().forEach(key => {
   countries[key] = allCountries[key];
 })
-
-/* console.log(countries) */

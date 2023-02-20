@@ -1,38 +1,30 @@
+const body = document.querySelector('body')
 const cardsSection = document.getElementById('cards');
-const countrySection = document.getElementById('country');
 
+const select = document.getElementById('select');
+select.addEventListener('change', filterByRegion);
 
-const api = axios.create({
-  baseURL: 'https://countryapi.io/api',
-  headers: {
-    'Authorization': 'Bearer wzboaEqfDeW6hyr5YAby9NvASkyAqQwLDVvull0N'
-  }
+const searchInput = document.getElementById('search-input');
+searchInput.addEventListener('input', filterByName);
+
+const darkMode = document.getElementById('dark-mode');
+darkMode.addEventListener('click', () => {
+  body.classList.toggle('dark');
+  localStorage.setItem('darkMode', body.classList.contains('dark'));
 })
 
-async function getCountries() {
-  try {
-    const res = await api.get('/all');
-    console.log(res);
+const isDarkModeActive = JSON.parse(localStorage.getItem('darkMode'));
 
-    const unsortedCountries = res.data;
+document.addEventListener('DOMContentLoaded', setColors);
 
-    const countries = {};
 
-    Object.keys(unsortedCountries).sort().forEach(key => {
-      countries[key] = unsortedCountries[key];
-    })
-
-    renderCountries(countries);
-  }
-  catch (error) {
-    console.error(error);
+function setColors() {
+  if (isDarkModeActive) {
+    body.classList.add('dark');
+  } else {
+    body.classList.remove('dark');
   }
 }
-
-
-/* getCountries(); */
-
-console.log(countries)
 
 
 function renderCountries(countries) {
@@ -41,6 +33,7 @@ function renderCountries(countries) {
     for (let key of Object.keys(countries)) {
       const article = document.createElement('article');
       article.classList.add('bg-main', 'rounded-md', 'shadow-2xl', 'overflow-hidden', 'dark:bg-gray-800', 'dark:text-sec');
+      /* article.setAttribute('data-aos', 'fade-up'); */
 
       const a = document.createElement('a');
       
@@ -49,6 +42,7 @@ function renderCountries(countries) {
       img.classList.add('h-40', 'lg:h-52', 'w-full', 'object-cover');
       img.src = `https://flagcdn.com/${key}.svg`;
       img.alt = countries[key]['name'];
+      img.loading = 'lazy';
 
       const div = document.createElement('div');
       div.classList.add('px-6', 'py-5');
@@ -88,7 +82,6 @@ function renderCountries(countries) {
       const lowerCaseCountryName = countries[key]['name'].toLowerCase();
       const url = new URL('/src/country.html', window.location.href);
       url.searchParams.set('country', lowerCaseCountryName);
-      /* url.searchParams.set('country', countries[key]['name']); */
 
       a.href = url.toString();
 
@@ -105,19 +98,65 @@ function renderCountries(countries) {
 renderCountries(countries);
 
 
-/* async function fetchData() {
-  const res = await fetch('/src/js/countries.json');
-  const unsortedData = await res.json();
+function filterByRegion() {
+  const selectedRegion = select.value;
+  cardsSection.innerHTML = '';
 
-  const data = {};
+  const filteredCountries = {};
 
-  Object.keys(unsortedData).sort().forEach(key => {
-    data[key] = unsortedData[key];
-  })
+  if (selectedRegion === 'all') {
+    renderCountries(countries)
+  } else {
+    Object.keys(countries).forEach(countryCode => {
+      if (countries[countryCode]['region'].toLowerCase() === selectedRegion) {
+        filteredCountries[countryCode] = countries[countryCode];
+      }
+    })
+  }
 
-  return data;
+  renderCountries(filteredCountries)
 }
 
-const countries = fetchData();
 
-console.log(countries); */
+function filterByName() {
+  const query = searchInput.value.trim().toLowerCase();
+  console.log(query)
+  const cards = document.querySelectorAll('article');
+
+  cards.forEach(card => {
+    const name = card.querySelector('h2').textContent.toLowerCase();
+    const matchesQuery = name.includes(query);
+
+    card.style.display = matchesQuery ? 'block' : 'none';
+  });
+}
+
+filterByName();
+
+
+/* const api = axios.create({
+  baseURL: 'https://countryapi.io/api',
+  headers: {
+    'Authorization': 'Bearer wzboaEqfDeW6hyr5YAby9NvASkyAqQwLDVvull0N'
+  }
+})
+
+async function getCountries() {
+  try {
+    const res = await api.get('/all');
+    console.log(res);
+
+    const unsortedCountries = res.data;
+
+    const countries = {};
+
+    Object.keys(unsortedCountries).sort().forEach(key => {
+      countries[key] = unsortedCountries[key];
+    })
+
+    renderCountries(countries);
+  }
+  catch (error) {
+    console.error(error);
+  }
+} */
