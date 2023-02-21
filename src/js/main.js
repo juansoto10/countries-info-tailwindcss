@@ -8,7 +8,6 @@ select.addEventListener('change', filterByRegion);
 const searchInput = document.getElementById('search-input');
 searchInput.addEventListener('input', filterByName);
 
-localStorage.setItem('darkMode', true);
 
 const toggleDarkMode = document.getElementById('dark-mode');
 toggleDarkMode.addEventListener('click', () => {

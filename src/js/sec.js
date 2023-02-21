@@ -4,7 +4,6 @@ const countrySection = document.getElementById('country');
 const params = new URLSearchParams(window.location.search);
 const selectedCountry = params.get('country');
 
-localStorage.setItem('darkMode', true);
 
 const toggleDarkMode = document.getElementById('dark-mode');
 toggleDarkMode.addEventListener('click', () => {
