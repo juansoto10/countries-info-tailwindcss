@@ -4,8 +4,10 @@ const countrySection = document.getElementById('country');
 const params = new URLSearchParams(window.location.search);
 const selectedCountry = params.get('country');
 
-const darkMode = document.getElementById('dark-mode');
-darkMode.addEventListener('click', () => {
+localStorage.setItem('darkMode', true);
+
+const toggleDarkMode = document.getElementById('dark-mode');
+toggleDarkMode.addEventListener('click', () => {
   body.classList.toggle('dark');
   localStorage.setItem('darkMode', body.classList.contains('dark'));
 })
@@ -154,7 +156,7 @@ function renderCountry(countryName) {
     a.classList.add('py-1', 'px-5', 'rounded', 'shadow-2xl', 'dark:bg-gray-800');
 
     const lowerCaseCountryName = country['name'].toLowerCase();
-    const url = new URL('/src/country.html', window.location.href);
+    const url = new URL('/country.html', window.location.href);
     url.searchParams.set('country', lowerCaseCountryName);
     a.href = url.toString();
     const borderCountryText = document.createTextNode('None');
@@ -168,7 +170,7 @@ function renderCountry(countryName) {
       const a = document.createElement('a');
       a.classList.add('py-1', 'px-5', 'rounded', 'shadow-2xl', 'dark:bg-gray-800');
 
-      const url = new URL('/src/country.html', window.location.href);
+      const url = new URL('/country.html', window.location.href);
       url.searchParams.set('country', borderCountryName.toLowerCase());
       a.href = url.toString();
       const borderCountryText = document.createTextNode(borderCountryName);

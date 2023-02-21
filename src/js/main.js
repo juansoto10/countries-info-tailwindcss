@@ -8,8 +8,10 @@ select.addEventListener('change', filterByRegion);
 const searchInput = document.getElementById('search-input');
 searchInput.addEventListener('input', filterByName);
 
-const darkMode = document.getElementById('dark-mode');
-darkMode.addEventListener('click', () => {
+localStorage.setItem('darkMode', true);
+
+const toggleDarkMode = document.getElementById('dark-mode');
+toggleDarkMode.addEventListener('click', () => {
   body.classList.toggle('dark');
   localStorage.setItem('darkMode', body.classList.contains('dark'));
 })
@@ -89,7 +91,7 @@ function renderCountries(countries) {
       // Article.onclick
 
       const lowerCaseCountryName = countries[key]['name'].toLowerCase();
-      const url = new URL('/src/country.html', window.location.href);
+      const url = new URL('/country.html', window.location.href);
       url.searchParams.set('country', lowerCaseCountryName);
 
       a.href = url.toString();
