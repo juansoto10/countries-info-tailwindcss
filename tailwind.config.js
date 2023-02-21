@@ -17,6 +17,7 @@ module.exports = {
         'main': '#EDF2F3',
         'sec': '#AAF1F5',
         'turquoise': '#51B9CD',
+        'turquoise-txt': '#4094A4',
         'quartz': '#F8E5E6',
         'baby-blue': '#AFD8F2',
         'red': '#F41F4E'
@@ -33,12 +34,17 @@ module.exports = {
         card: {
           "0%, 100%": { transform: "scale(1.01)" },
           "80%": { transform: "scale(1.01)" }
+        },
+        fadeInUp: {
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         }
       },
       animation: {
         wiggle: "wiggle 200ms ease-in-out",
         click: "click 10000ms ease-in-out",
         card: "card 10000ms ease-in-out",
+        fadeInUp: "fadeInUp 1s ease-out",
       }
     },
     boxShadow: {

@@ -1,5 +1,6 @@
 const body = document.querySelector('body')
 const cardsSection = document.getElementById('cards');
+const scrollUp = document.getElementById('scroll-up');
 
 const select = document.getElementById('select');
 select.addEventListener('change', filterByRegion);
@@ -26,13 +27,21 @@ function setColors() {
   }
 }
 
+scrollUp.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "smooth",
+  });
+});
+
 
 function renderCountries(countries) {
   const toRender = [];
 
     for (let key of Object.keys(countries)) {
       const article = document.createElement('article');
-      article.classList.add('bg-main', 'rounded-md', 'shadow-2xl', 'overflow-hidden', 'dark:bg-gray-800', 'dark:text-sec');
+      article.classList.add('bg-main', 'rounded-md', 'shadow-2xl', 'overflow-hidden', 'dark:bg-gray-800', 'dark:text-sec', 'transition', 'hover:scale-105', 'duration-300', 'ease-in-out');
       /* article.setAttribute('data-aos', 'fade-up'); */
 
       const a = document.createElement('a');
@@ -120,7 +129,6 @@ function filterByRegion() {
 
 function filterByName() {
   const query = searchInput.value.trim().toLowerCase();
-  console.log(query)
   const cards = document.querySelectorAll('article');
 
   cards.forEach(card => {
@@ -131,7 +139,9 @@ function filterByName() {
   });
 }
 
-filterByName();
+/* filterByName(); */
+
+
 
 
 /* const api = axios.create({
